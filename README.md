@@ -2,6 +2,8 @@
 
 SSR is turned off and not tested a long time
 
+Application using https://dummyjson.com/ as mock api
+
 ## Usage
 
 ### Environment
