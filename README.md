@@ -1,6 +1,6 @@
 # Ivan Agafonov Sample Frontend project with SSR
 
-SSR is turned off and not tested a long time
+SSR is turned off and not tested for a long time
 
 Application using https://dummyjson.com/ as mock api
 
