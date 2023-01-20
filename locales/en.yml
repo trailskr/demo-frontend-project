@@ -1,0 +1,70 @@
+actions: Actions
+are-you-sure-you-want-to-permanently-delete-user-name: Are you sure you want to permanently delete user "{name}"?
+cancel: Cancel
+users: Users
+users-count: No Users | {count} User | {count} Users
+create: Create
+delete: Delete
+permanently-delete-user: Permanently Delete User
+edit: Edit
+edit-user: Edit User
+email: Email
+errors:
+  an-error-has-occured: An error has occurred
+first-name: First Name
+go-home: Go home
+groups: Groups
+instructions: Instructions
+last-name: Last Name
+name: Name
+new-user: New User
+next: Next
+next-month: Next Month
+of: of
+ok: Ok
+page-does-not-exist: Page does not exist
+phone: Phone
+phone-is-invalid: Phone is invalid
+prev: Prev
+previous-month: Previous Month
+rich-text:
+  bold: Bold
+  bullet-list: Bullet list
+  heading-number: Heading {number}
+  italic: Italic
+  link: Link
+  ordered-list: Ordered list
+  strikethrough: Strikethrough
+save: Save
+search: Search
+select:
+  list-is-empty: List is empty
+  nothing-found: Nothing found
+  number-more: '{number} more...'
+  type-to-search: Type to search
+sign:
+  login: Login
+  or-sign-in-with-email: Or sign in with email
+  password: Password
+  sign-in-process: Sign in
+  sign-up-process: Sign up
+  to-sign-in: Sign in
+size:
+  b: B
+  gb: GB
+  kb: KB
+  mb: MB
+  tb: TB
+to: to
+to-clear: Clear
+to-close: Close
+to-delete: Delete
+to-sign-out: Sign Out
+user-menu: User Menu
+validation:
+  please-type-something: Please type something
+  wrong-email-format: Wrong email format
+individual: Individual
+organization: Organization
+no-records-found: No records found
+ui-components: Ui Components

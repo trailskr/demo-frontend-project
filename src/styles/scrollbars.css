@@ -1,0 +1,33 @@
+::-webkit-scrollbar {
+  @apply w-4;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-4 border-6 border-background;
+}
+
+/* bg-specific */
+.bg-substrate::-webkit-scrollbar-track {
+  @apply bg-substrate;
+}
+.bg-substrate::-webkit-scrollbar-thumb {
+  @apply border-substrate;
+}
+
+.bg-white::-webkit-scrollbar-track {
+  @apply bg-white;
+}
+.bg-white::-webkit-scrollbar-thumb {
+  @apply border-white;
+}
+
+.bg-theme::-webkit-scrollbar-track {
+  @apply bg-theme;
+}
+.bg-theme::-webkit-scrollbar-thumb {
+  @apply border-theme;
+}

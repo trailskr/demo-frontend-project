@@ -1,0 +1,6 @@
+createUser: createUser
+deleteUser: deleteUser
+getUser: getUser
+getUsers: getUsers
+login: login
+updateUser: updateUser

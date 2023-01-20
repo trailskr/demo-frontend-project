@@ -1,0 +1,337 @@
+openapi: "3.0.2"
+info:
+  title: Partial API spec for https://dummyjson.com/
+  version: "1.0"
+servers:
+  - url: https://dummyjson.com
+paths:
+  /auth/login:
+    post:
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthCredentials"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUserInfo"
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unexpected server error.
+  /users:
+    get:
+      operationId: getUsers
+      parameters:
+        - description: "Filter users by name, phone, or email."
+          in: query
+          name: query
+          required: false
+          schema:
+            type: string
+        - description: Page limit.
+          explode: true
+          in: query
+          name: limit
+          required: false
+          schema:
+            default: 1
+            format: int32
+            minimum: 1
+            type: integer
+          style: form
+        - description: Page offset.
+          explode: true
+          in: query
+          name: skip
+          required: false
+          schema:
+            default: 100
+            format: int32
+            minimum: 0
+            type: integer
+          style: form
+        - description: Descending sort.
+          explode: true
+          in: query
+          name: desc
+          required: false
+          schema:
+            default: true
+            type: boolean
+          style: form
+        - description: Sort by parameter.
+          in: query
+          name: sort
+          required: false
+          schema:
+            default: created
+            enum:
+              - name
+              - email
+              - phone
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersPagedList"
+          description: OK
+      summary: Get user list.
+      tags:
+        - Users
+    post:
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserForm"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+          description: User created.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unexpected server error.
+      summary: Create new user.
+      tags:
+        - Users
+  /users/{id}:
+    delete:
+      operationId: deleteUser
+      parameters:
+        - description: User ID.
+          in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        "200":
+          description: User deleted.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unexpected server error.
+      summary: Delete user.
+      tags:
+        - Users
+    get:
+      operationId: getUser
+      parameters:
+        - description: User ID.
+          in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unexpected server error.
+      summary: Get user information
+      tags:
+        - Users
+    put:
+      operationId: updateUser
+      parameters:
+        - description: User ID.
+          in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserForm"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+          description: User updated.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unexpected server error.
+      summary: Update user information.
+      tags:
+        - Users
+components:
+  schemas:
+    AuthCredentials:
+      description: Information to begin OpenID authentication.
+      example:
+        authUrl: https://openapi-generator.tech
+      properties:
+        username:
+          description: User name
+          format: login
+          type: string
+        password:
+          description: Password
+          format: password
+          type: string
+      required:
+        - username
+        - password
+      type: object
+    AuthUserInfo:
+      description: User information with access token.
+      allOf:
+        - $ref: "#/components/schemas/AuthToken"
+        - $ref: "#/components/schemas/UserInfo"
+    AuthToken:
+      description: User access token.
+      properties:
+        token:
+          format: token
+          type: string
+      required:
+        - token
+      type: object
+    PagedList:
+      example:
+        limit: 30
+        skip: 10
+        total: 100
+      properties:
+        limit:
+          description: Page size.
+          format: int32
+          type: integer
+        skip:
+          description: Skip items.
+          format: int32
+          type: integer
+        total:
+          description: Total items.
+          format: int32
+          type: integer
+      required:
+        - limit
+        - skip
+        - total
+      title: Abstract list with paging.
+      type: object
+    UserInfo:
+      description: User information.
+      properties:
+        id:
+          type: integer
+        email:
+          format: email
+          type: string
+        firstName:
+          format: firstName
+          type: string
+        lastName:
+          format: lastName
+          type: string
+        phone:
+          format: phone
+          type: string
+        image:
+          format: url
+          type: string
+      required:
+        - id
+        - username
+        - email
+        - firstName
+        - lastName
+      type: object
+    UserForm:
+      description: User information.
+      properties:
+        email:
+          format: email
+          type: string
+        firstName:
+          format: firstName
+          type: string
+        lastName:
+          format: lastName
+          type: string
+        phone:
+          format: phone
+          type: string
+        image:
+          format: url
+          type: string
+      required:
+        - email
+        - firstName
+        - lastName
+      type: object
+    UsersPagedList:
+      allOf:
+        - $ref: "#/components/schemas/PagedList"
+        - $ref: "#/components/schemas/UserList"
+    UserList:
+      properties:
+        users:
+          items:
+            $ref: "#/components/schemas/UserInfo"
+          type: array
+      required:
+        - users
+      type: object
+    Error:
+      properties:
+        message:
+          description: User-friendly error message.
+          type: string
+        code:
+          description: Machine-friendly error code.
+          type: string
+        fields:
+          description: Optional extra fields.
+          items:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+          type: array
+      required:
+        - message
+      title: Common error response structure.
+      type: object
